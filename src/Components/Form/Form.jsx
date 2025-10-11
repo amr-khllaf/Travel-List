@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 
-export default function Form() {
-  const [desc, setDesc] = useState("");
+export default function Form({ onAddItem }) {
+  //! State to manage form inputs
+  const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
+  //! State to manage the list of travel items
+
+  //! Handle form submission
   function handleSubmit(e) {
     e.preventDefault();
-    if (!desc) return; // Prevent adding empty items
+    if (!description) return; //& Prevent adding empty items
 
-    // Create a new travel item object
-    const newItem = { desc, quantity, packed: false, id: Date.now() };
+    //! Create a new travel item object
+    const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
+    //! Add the new item to the list
+    onAddItem(newItem);
 
-    // Reset form fields
-    setDesc("");
+    //! Reset form fields
+    setDescription("");
     setQuantity(1);
   }
   return (
@@ -26,6 +32,7 @@ export default function Form() {
           value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
         >
+          {/* //! Generate quantity options, Using Array.from */}
           {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
             <option value={num} key={num}>
               {num}
@@ -35,8 +42,8 @@ export default function Form() {
         <input
           type="text"
           placeholder="Enter your travel item need"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <button> Add</button>
       </form>

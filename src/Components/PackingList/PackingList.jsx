@@ -1,13 +1,17 @@
 import React from "react";
-import items from "../../../public/data";
+// import items from "../../../public/data";
 import Item from "../Item/Item";
-export default function PackingList() {
+export default function PackingList({ items, onDeleteItem }) {
+  console.log(items);
+
   return (
     <>
       <div className="list">
         <ul>
           {items.map((item) => {
-            return <Item key={item.id} item={item} />;
+            return (
+              <Item key={item.id} item={item} onDeleteItem={onDeleteItem} />
+            );
           })}
         </ul>
       </div>
