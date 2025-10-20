@@ -9,6 +9,7 @@ export default function App() {
   // Lifting State Up Concept in React
   //! State to manage the list of travel items
   const [items, setItems] = useState([]);
+  
   //! Function to add a new item to the list
   function handleAddItem(item) {
     setItems((prevItems) => {
@@ -43,7 +44,7 @@ export default function App() {
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
       />
-      <Stats />
+      <Stats items={items} />
     </>
   );
 }
