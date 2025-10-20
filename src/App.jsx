@@ -9,7 +9,7 @@ export default function App() {
   // Lifting State Up Concept in React
   //! State to manage the list of travel items
   const [items, setItems] = useState([]);
-  
+
   //! Function to add a new item to the list
   function handleAddItem(item) {
     setItems((prevItems) => {
@@ -34,7 +34,15 @@ export default function App() {
       );
     });
   }
-
+  // Function to clear the entire list
+  function clearList() {
+    const confirmed = window.confirm(
+      "Are you sure you want to clear the list?"
+    );
+    if (confirmed) {
+      setItems([]);
+    }
+  }
   return (
     <>
       <Logo />
@@ -43,6 +51,7 @@ export default function App() {
         items={items}
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
+        clearList={clearList}
       />
       <Stats items={items} />
     </>
