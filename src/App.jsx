@@ -3,12 +3,12 @@ import Logo from "./Components/Logo/Logo";
 import Form from "./Components/Form/Form";
 import PackingList from "./Components/PackingList/PackingList";
 import Stats from "./Components/Stats/Stats";
-import initialItems from "../public/data.js";
+// import initialItems from "../public/data.js";
 
 export default function App() {
   // Lifting State Up Concept in React
   //! State to manage the list of travel items
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState([]);
   //! Function to add a new item to the list
   function handleAddItem(item) {
     setItems((prevItems) => {
@@ -24,11 +24,25 @@ export default function App() {
     });
   }
 
+  // Function to toggle the packed status of an item
+  function handleToggleItem(id) {
+    setItems((prevItems) => {
+      // & Map through the items and toggle the packed status of the item with the given id
+      return prevItems.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      );
+    });
+  }
+
   return (
     <>
       <Logo />
       <Form onAddItem={handleAddItem} />
-      <PackingList items={items} onDeleteItem={handleDeleteItem} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onToggleItem={handleToggleItem}
+      />
       <Stats />
     </>
   );
